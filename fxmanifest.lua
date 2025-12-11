@@ -12,7 +12,6 @@ files {
   'web/dist/index.html',
   'web/dist/assets/*.js',
   'locales/*.json',
-  'peds.json',
   'tattoos.json'
 }
 

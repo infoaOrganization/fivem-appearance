@@ -7,7 +7,7 @@ import {
   DATA_CLOTHES,
 } from '../../constants';
 
-import { pedModels, getPedAppearance, setPlayerAppearance, totalTattoos } from '../../index';
+import { getPedModels, getPedAppearance, setPlayerAppearance, totalTattoos } from '../../index';
 
 import { arrayToVector3, isPedMale, Delay } from '../../utils';
 
@@ -126,7 +126,7 @@ export function getAppearanceSettings(): AppearanceSettings {
 
   const ped: PedSettings = {
     model: {
-      items: pedModels,
+      items: getPedModels(),
     },
   };
 

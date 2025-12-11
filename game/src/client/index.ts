@@ -20,13 +20,20 @@ export const totalTattoos: TattooList = JSON.parse(
   LoadResourceFile(GetCurrentResourceName(), 'tattoos.json'),
 );
 
-export const pedModels: string[] = JSON.parse(
-  LoadResourceFile(GetCurrentResourceName(), 'peds.json'),
-);
+let pedModels: string[] = [];
 
-const pedModelsByHash = pedModels.reduce((object, model) => {
-  return { ...object, [GetHashKey(model)]: model };
-}, {});
+let pedModelsByHash: Record<number, string> = {};
+
+export function setPedModels(models: string[]): void {
+  pedModels = models;
+  pedModelsByHash = models.reduce((object, model) => {
+    return { ...object, [GetHashKey(model)]: model };
+  }, {});
+}
+
+export function getPedModels(): string[] {
+  return pedModels;
+}
 
 function getPedModel(ped: number): string {
   return pedModelsByHash[GetEntityModel(ped)];
@@ -411,6 +418,7 @@ function setPedAppearance(ped: number, appearance: Omit<PedAppearance, 'model'>)
   Customization.loadModule();
 
   exp('getPedModel', getPedModel);
+  exp('getPedModels', getPedModels);
   exp('getPedComponents', getPedComponents);
   exp('getPedProps', getPedProps);
   exp('getPedHeadBlend', getPedHeadBlend);
@@ -420,6 +428,7 @@ function setPedAppearance(ped: number, appearance: Omit<PedAppearance, 'model'>)
   exp('getPedTattoos', getPedTattoos);
   exp('getPedAppearance', getPedAppearance);
 
+  exp('setPedModels', setPedModels);
   exp('setPlayerModel', setPlayerModel);
   exp('setPedHeadBlend', setPedHeadBlend);
   exp('setPedFaceFeatures', setPedFaceFeatures);

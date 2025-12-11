@@ -31,7 +31,7 @@ jobs:
           mkdir -p ./temp/fivem-appearance
           mkdir -p ./temp/fivem-appearance/game
           mkdir -p ./temp/fivem-appearance/web
-          cp ./{fxmanifest.lua,LICENSE,README.md,peds.json,tattoos.json} ./temp/fivem-appearance
+          cp ./{fxmanifest.lua,LICENSE,README.md,tattoos.json} ./temp/fivem-appearance
           cp -r ./locales ./temp/fivem-appearance
           cp -r ./game/dist ./temp/fivem-appearance/game
           cp -r ./web/dist ./temp/fivem-appearance/web
