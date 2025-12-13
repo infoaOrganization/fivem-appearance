@@ -5,6 +5,8 @@ import Nui, { EventListener } from './Nui';
 
 if (!import.meta.env.PROD) {
   window.Nui = Nui;
+
+  setTimeout(() => window.postMessage({ type: 'appearance_display' }, '*'), 500);
 }
 
 const container = document.getElementById('root') as HTMLElement;
