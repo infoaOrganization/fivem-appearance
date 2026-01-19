@@ -14,6 +14,8 @@ interface PedProps {
 }
 
 const Ped = ({ settings, storedData, data, handleModelChange }: PedProps) => {
+  const options = settings.model.items.map(({ label, model }) => ({ label, value: model }));
+
   const { locales } = useNuiState();
 
   if (!locales) {
@@ -25,8 +27,8 @@ const Ped = ({ settings, storedData, data, handleModelChange }: PedProps) => {
       <Item>
         <SelectInput
           title={locales.ped.model}
-          items={settings.model.items}
-          defaultValue={{ label: settings.model.items[0].label, model: settings.model.items[0].model }}
+          items={options}
+          defaultValue={options[0]}
           clientValue={storedData}
           onChange={value => handleModelChange(value)}
         />
