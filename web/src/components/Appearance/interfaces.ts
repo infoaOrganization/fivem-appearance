@@ -84,7 +84,7 @@ export interface PedAppearance {
 
 export interface PedSettings {
   model: {
-    items: string[];
+    items: { label: string, model: string }[];
   };
 }
 

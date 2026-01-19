@@ -26,7 +26,7 @@ const Ped = ({ settings, storedData, data, handleModelChange }: PedProps) => {
         <SelectInput
           title={locales.ped.model}
           items={settings.model.items}
-          defaultValue={data}
+          defaultValue={{ label: settings.model.items[0].label, model: settings.model.items[0].model }}
           clientValue={storedData}
           onChange={value => handleModelChange(value)}
         />

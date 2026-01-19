@@ -101,7 +101,7 @@ interface PedAppearance {
 
 interface PedSettings {
   model: {
-    items: string[];
+    items: { label: string; model: string }[];
   };
 }
 

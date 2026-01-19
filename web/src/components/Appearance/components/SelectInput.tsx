@@ -4,8 +4,8 @@ import Select from 'react-select';
 
 interface SelectInputProps {
   title: string;
-  items: string[];
-  defaultValue: string;
+  items: { label: string, model: string }[];
+  defaultValue: { label: string, model: string };
   clientValue: string;
   onChange: (value: string) => void;
 }
@@ -106,7 +106,7 @@ const SelectInput = ({ title, items, defaultValue, clientValue, onChange }: Sele
 
   const handleChange = (event: any, { action }: any): void => {
     if (action === 'select-option') {
-      onChange(event.value);
+      onChange(event.value.model);
     }
   };
 
@@ -119,8 +119,8 @@ const SelectInput = ({ title, items, defaultValue, clientValue, onChange }: Sele
       <Select
         ref={selectRef}
         styles={customStyles}
-        options={items.map(item => ({ value: item, label: item }))}
-        value={{ value: defaultValue, label: defaultValue }}
+        options={items.map(item => ({ value: item.model, label: item.label }))}
+        value={{ value: defaultValue.model, label: defaultValue.label }}
         onChange={handleChange}
         menuPortalTarget={document.body}
       />

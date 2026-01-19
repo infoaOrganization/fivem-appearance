@@ -20,18 +20,18 @@ export const totalTattoos: TattooList = JSON.parse(
   LoadResourceFile(GetCurrentResourceName(), 'tattoos.json'),
 );
 
-let pedModels: string[] = [];
+let pedModels: { label: string; model: string }[] = [];
 
 let pedModelsByHash: Record<number, string> = {};
 
-export function setPedModels(models: string[]): void {
+export function setPedModels(models: { label: string; model: string }[]): void {
   pedModels = models;
   pedModelsByHash = models.reduce((object, model) => {
-    return { ...object, [GetHashKey(model)]: model };
+    return { ...object, [GetHashKey(model.model)]: model.model };
   }, {});
 }
 
-export function getPedModels(): string[] {
+export function getPedModels(): { label: string; model: string }[] {
   return pedModels;
 }
 
