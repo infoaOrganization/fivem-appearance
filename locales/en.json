@@ -1,141 +1,141 @@
 {
   "modal": {
     "save": {
-      "title": "Save customization",
-      "description": "You will remain ugly"
+      "title": "커스터마이징 저장",
+      "description": "이대로 저장하시겠습니까?"
     },
     "exit": {
-      "title": "Exit customization",
-      "description": "No changes will be saved"
+      "title": "커스터마이징 종료",
+      "description": "변경 사항이 저장되지 않습니다"
     },
-    "accept": "Yes",
-    "decline": "No"
+    "accept": "예",
+    "decline": "아니오"
   },
   "ped": {
-    "title": "Ped",
-    "model": "Model"
+    "title": "페드",
+    "model": "모델"
   },
   "headBlend": {
-    "title": "Inheritance",
+    "title": "유전",
     "shape": {
-      "title": "Face",
-      "firstOption": "Father",
-      "secondOption": "Mother",
-      "mix": "Mix"
+      "title": "얼굴형",
+      "firstOption": "아버지",
+      "secondOption": "어머니",
+      "mix": "혼합"
     },
     "skin": {
-      "title": "Skin",
-      "firstOption": "Father",
-      "secondOption": "Mother",
-      "mix": "Mix"
+      "title": "피부",
+      "firstOption": "아버지",
+      "secondOption": "어머니",
+      "mix": "혼합"
     }
   },
   "faceFeatures": {
-    "title": "Face Features",
+    "title": "얼굴 세부 조정",
     "nose": {
-      "title": "Nose",
-      "width": "Width",
-      "height": "Height",
-      "size": "Size",
-      "boneHeight": "Bone height",
-      "boneTwist": "Bone twist",
-      "peakHeight": "Peak height"
+      "title": "코",
+      "width": "너비",
+      "height": "높이",
+      "size": "크기",
+      "boneHeight": "콧대 높이",
+      "boneTwist": "콧대 비틀림",
+      "peakHeight": "콧끝 높이"
     },
     "eyebrows": {
-      "title": "Eyebrows",
-      "height": "Height",
-      "depth": "Depth"
+      "title": "눈썹",
+      "height": "높이",
+      "depth": "깊이"
     },
     "cheeks": {
-      "title": "Cheeks",
-      "boneHeight": "Bone height",
-      "boneWidth": "Bone width",
-      "width": "Width"
+      "title": "볼",
+      "boneHeight": "광대 높이",
+      "boneWidth": "광대 너비",
+      "width": "너비"
     },
     "eyesAndMouth": {
-      "title": "Eyes and Mouth",
-      "eyesOpening": "Eyes opening",
-      "lipsThickness": "Lip thickness"
+      "title": "눈과 입",
+      "eyesOpening": "눈 크기",
+      "lipsThickness": "입술 두께"
     },
     "jaw": {
-      "title": "Jaw",
-      "width": "Width",
-      "size": "Size"
+      "title": "턱",
+      "width": "너비",
+      "size": "크기"
     },
     "chin": {
-      "title": "Chin",
-      "lowering": "Lowering",
-      "length": "Length",
-      "size": "Size",
-      "hole": "Hole size"
+      "title": "턱끝",
+      "lowering": "내림",
+      "length": "길이",
+      "size": "크기",
+      "hole": "턱 홈"
     },
     "neck": {
-      "title": "Neck",
-      "thickness": "Thickness"
+      "title": "목",
+      "thickness": "두께"
     }
   },
   "headOverlays": {
-    "title": "Appearance",
+    "title": "외모",
     "hair": {
-      "title": "Hair",
-      "style": "Style",
-      "color": "Color",
-      "highlight": "Highlight", 
-      "fade": "Fade"
+      "title": "머리카락",
+      "style": "스타일",
+      "color": "색상",
+      "highlight": "하이라이트",
+      "fade": "페이드"
     },
-    "opacity": "Opacity",
-    "style": "Style",
-    "color": "Color",
-    "blemishes": "Blemishes",
-    "beard": "Beard",
-    "eyebrows": "Eyebrows",
-    "ageing": "Ageing",
-    "makeUp": "Make up",
-    "blush": "Bblush",
-    "complexion": "Complexion",
-    "sunDamage": "Sun damage",
-    "lipstick": "Lipstick",
-    "moleAndFreckles": "Mole and Freckles",
-    "chestHair": "Chest hair",
-    "bodyBlemishes": "Body blemishes",
-    "eyeColor": "Eye color"
+    "opacity": "불투명도",
+    "style": "스타일",
+    "color": "색상",
+    "blemishes": "잡티",
+    "beard": "수염",
+    "eyebrows": "눈썹",
+    "ageing": "노화",
+    "makeUp": "화장",
+    "blush": "볼터치",
+    "complexion": "피부결",
+    "sunDamage": "햇볕 손상",
+    "lipstick": "립스틱",
+    "moleAndFreckles": "점과 주근깨",
+    "chestHair": "가슴 털",
+    "bodyBlemishes": "몸 잡티",
+    "eyeColor": "눈 색상"
   },
   "components": {
-    "title": "Clothes",
-    "drawable": "Drawable",
-    "texture": "Texture",
-    "mask": "Mask",
-    "upperBody": "Hands",
-    "lowerBody": "Legs",
-    "bags": "Bags and parachute",
-    "shoes": "Shoes",
-    "scarfAndChains": "Scarf and chais",
-    "shirt": "Shirt",
-    "bodyArmor": "Body armor",
-    "decals": "Decals",
-    "jackets": "Jackets"
+    "title": "의류",
+    "drawable": "종류",
+    "texture": "텍스처",
+    "mask": "마스크",
+    "upperBody": "상체",
+    "lowerBody": "다리",
+    "bags": "가방 및 낙하산",
+    "shoes": "신발",
+    "scarfAndChains": "스카프 및 체인",
+    "shirt": "셔츠",
+    "bodyArmor": "방탄조끼",
+    "decals": "데칼",
+    "jackets": "재킷"
   },
   "props": {
-    "title": "Props",
-    "drawable": "Drawable",
-    "texture": "Texture",
-    "hats": "Hats and helmets",
-    "glasses": "Glasses",
-    "ear": "Ear",
-    "watches": "Watches",
-    "bracelets": "Bracelets"
-  }, 
+    "title": "악세서리",
+    "drawable": "종류",
+    "texture": "텍스처",
+    "hats": "모자 및 헬멧",
+    "glasses": "안경",
+    "ear": "귀걸이",
+    "watches": "시계",
+    "bracelets": "팔찌"
+  },
   "tattoos": {
-    "title": "Tattoos",
+    "title": "타투",
     "items": {
-      "ZONE_TORSO": "Torso",
-      "ZONE_HEAD": "Head",
-      "ZONE_LEFT_ARM": "Left arm",
-      "ZONE_RIGHT_ARM": "Right arm",
-      "ZONE_LEFT_LEG": "Left leg",
-      "ZONE_RIGHT_LEG": "Right leg"
+      "ZONE_TORSO": "몸통",
+      "ZONE_HEAD": "머리",
+      "ZONE_LEFT_ARM": "왼팔",
+      "ZONE_RIGHT_ARM": "오른팔",
+      "ZONE_LEFT_LEG": "왼다리",
+      "ZONE_RIGHT_LEG": "오른다리"
     },
-    "apply": "Apply", 
-    "delete": "Delete"
+    "apply": "적용",
+    "delete": "삭제"
   }
 }
