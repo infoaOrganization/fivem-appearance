@@ -5,6 +5,7 @@ import Item from './components/Item';
 import SelectInput from './components/SelectInput';
 
 import { PedSettings } from './interfaces';
+import { useMemo } from 'react';
 
 interface PedProps {
   settings: PedSettings;
@@ -14,7 +15,7 @@ interface PedProps {
 }
 
 const Ped = ({ settings, storedData, data, handleModelChange }: PedProps) => {
-  const options = settings.model.items.map(({ label, model }) => ({ label, value: model }));
+  const options = useMemo(() => settings.model.items.map(({ label, model }) => ({ label, value: model })), [settings]);
 
   const { locales } = useNuiState();
 
