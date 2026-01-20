@@ -15,7 +15,7 @@ interface PedProps {
 }
 
 const Ped = ({ settings, storedData, data, handleModelChange }: PedProps) => {
-  const options = useMemo(() => settings.model.items.map(({ label, model }) => ({ label, value: model })), [settings]);
+  const options = useMemo(() => settings.model.items.map(({ label, model }) => ({ label, value: model })), [settings.model.items]);
 
   const { locales } = useNuiState();
 
