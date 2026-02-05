@@ -39,29 +39,47 @@ function getPedModel(ped: number): string {
   return pedModelsByHash[GetEntityModel(ped)];
 }
 
-function getPedComponents(ped: number): PedComponent[] {
-  const components = [];
+function getPedComponents(ped: number): PedComponents {
+  const components: PedComponents = {};
+  const isFreemode = isPedFreemodeModel(ped);
 
   PED_COMPONENTS_IDS.forEach(componentId => {
-    components.push({
-      component_id: componentId,
-      drawable: GetPedDrawableVariation(ped, componentId),
+    let collection = '';
+    let drawable = GetPedDrawableVariation(ped, componentId);
+
+    if (isFreemode) {
+      collection = GetPedDrawableVariationCollectionName(ped, componentId) || '';
+      drawable = GetPedDrawableVariationCollectionLocalIndex(ped, componentId);
+    }
+
+    components[componentId] = {
+      collection,
+      drawable,
       texture: GetPedTextureVariation(ped, componentId),
-    });
+    };
   });
 
   return components;
 }
 
-function getPedProps(ped: number): PedProp[] {
-  const props = [];
+function getPedProps(ped: number): PedProps {
+  const props: PedProps = {};
+  const isFreemode = isPedFreemodeModel(ped);
 
   PED_PROPS_IDS.forEach(propId => {
-    props.push({
-      prop_id: propId,
-      drawable: GetPedPropIndex(ped, propId),
+    let collection = '';
+    let drawable = GetPedPropIndex(ped, propId);
+
+    if (isFreemode) {
+      collection = GetPedPropVariationCollectionName(ped, propId) || '';
+      drawable = GetPedPropVariationCollectionLocalIndex(ped, propId);
+    }
+
+    props[propId] = {
+      collection,
+      drawable,
       texture: GetPedPropTextureIndex(ped, propId),
-    });
+    };
   });
 
   return props;
@@ -290,45 +308,58 @@ export function setPedEyeColor(ped: number, eyeColor: number): void {
   SetPedEyeColor(ped, eyeColor);
 }
 
-export function setPedComponent(ped: number, component: PedComponent): void {
-  if (!component) return;
+export function setPedComponent(ped: number, componentId: number, value: PedComponentValue): void {
+  if (!value) return;
 
-  const { component_id, drawable, texture } = component;
+  const { collection, drawable, texture } = value;
 
-  const excludedFromFreemodeModels = {
+  const excludedFromFreemodeModels: Record<number, boolean> = {
     0: true,
     2: true,
   };
 
-  if (excludedFromFreemodeModels[component_id] && isPedFreemodeModel(ped)) {
+  if (excludedFromFreemodeModels[componentId] && isPedFreemodeModel(ped)) {
     return;
   }
 
-  SetPedComponentVariation(ped, component_id, drawable, texture, 0);
-}
-
-export function setPedComponents(ped: number, components: PedComponent[]): void {
-  if (!components) return;
-
-  components.forEach(component => setPedComponent(ped, component));
-}
-
-export function setPedProp(ped: number, prop: PedProp): void {
-  if (!prop) return;
-
-  const { prop_id, drawable, texture } = prop;
-
-  if (drawable === -1) {
-    ClearPedProp(ped, prop_id);
+  if (isPedFreemodeModel(ped)) {
+    SetPedCollectionComponentVariation(ped, componentId, collection, drawable, texture, 0);
   } else {
-    SetPedPropIndex(ped, prop_id, drawable, texture, false);
+    SetPedComponentVariation(ped, componentId, drawable, texture, 0);
   }
 }
 
-export function setPedProps(ped: number, props: PedProp[]): void {
+export function setPedComponents(ped: number, components: PedComponents): void {
+  if (!components) return;
+
+  Object.entries(components).forEach(([id, value]) => {
+    setPedComponent(ped, Number(id), value);
+  });
+}
+
+export function setPedProp(ped: number, propId: number, value: PedPropValue): void {
+  if (!value) return;
+
+  const { collection, drawable, texture } = value;
+
+  if (drawable === -1) {
+    ClearPedProp(ped, propId);
+    return;
+  }
+
+  if (isPedFreemodeModel(ped)) {
+    SetPedCollectionPropIndex(ped, propId, collection, drawable, texture, false);
+  } else {
+    SetPedPropIndex(ped, propId, drawable, texture, false);
+  }
+}
+
+export function setPedProps(ped: number, props: PedProps): void {
   if (!props) return;
 
-  props.forEach(prop => setPedProp(ped, prop));
+  Object.entries(props).forEach(([id, value]) => {
+    setPedProp(ped, Number(id), value);
+  });
 }
 
 export async function setPlayerAppearance(appearance: PedAppearance): Promise<void> {

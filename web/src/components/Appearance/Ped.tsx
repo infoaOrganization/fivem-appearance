@@ -15,7 +15,7 @@ interface PedProps {
 }
 
 const Ped = ({ settings, storedData, data, handleModelChange }: PedProps) => {
-  const key = JSON.stringify(settings.model.items.map(({ label, model }) => [label, model])) // deterministic
+  const key = JSON.stringify(settings.model.items.map(({ label, model }) => [label, model])); // deterministic
   const optionsRef = useRef<{
     key: string;
     value: { label: string; value: string }[];

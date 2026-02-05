@@ -1,3 +1,37 @@
+// Collection-based natives (FiveM)
+declare function GetPedDrawableVariationCollectionName(ped: number, componentId: number): string;
+declare function GetPedDrawableVariationCollectionLocalIndex(
+  ped: number,
+  componentId: number,
+): number;
+declare function SetPedCollectionComponentVariation(
+  ped: number,
+  componentId: number,
+  collectionName: string,
+  drawableId: number,
+  textureId: number,
+  paletteId: number,
+): void;
+declare function IsPedCollectionComponentVariationValid(
+  ped: number,
+  componentId: number,
+  collectionName: string,
+  drawableId: number,
+  textureId: number,
+  paletteId: number,
+): boolean;
+
+declare function GetPedPropVariationCollectionName(ped: number, propId: number): string;
+declare function GetPedPropVariationCollectionLocalIndex(ped: number, propId: number): number;
+declare function SetPedCollectionPropIndex(
+  ped: number,
+  propId: number,
+  collectionName: string,
+  drawableId: number,
+  textureId: number,
+  attach: boolean,
+): void;
+
 interface Vector3 {
   x: number;
   y: number;
@@ -75,22 +109,26 @@ interface PedHair {
   highlight: number;
 }
 
-interface PedComponent {
-  component_id: number;
+interface PedComponentValue {
+  collection: string;
   drawable: number;
   texture: number;
 }
 
-interface PedProp {
-  prop_id: number;
+type PedComponents = Record<number, PedComponentValue>;
+
+interface PedPropValue {
+  collection: string;
   drawable: number;
   texture: number;
 }
+
+type PedProps = Record<number, PedPropValue>;
 
 interface PedAppearance {
   model: string;
-  components: PedComponent[];
-  props: PedProp[];
+  components: PedComponents;
+  props: PedProps;
   headBlend: PedHeadBlend;
   faceFeatures: PedFaceFeatures;
   headOverlays: PedHeadOverlays;

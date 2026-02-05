@@ -106,18 +106,29 @@ export function registerNuiCallbacks(): void {
 
   on(
     '__cfx_nui:appearance_change_component',
-    (component: PedComponent, cb: (arg: any) => void): void => {
+    (
+      component: { component_id: number; collection: string; drawable: number; texture: number },
+      cb: (arg: any) => void,
+    ): void => {
       const playerPed = PlayerPedId();
-      setPedComponent(playerPed, component);
-      cb(getComponentSettings(playerPed, component.component_id));
+      const { component_id, collection, drawable, texture } = component;
+      setPedComponent(playerPed, component_id, { collection, drawable, texture });
+      cb(getComponentSettings(playerPed, component_id));
     },
   );
 
-  on('__cfx_nui:appearance_change_prop', (prop: PedProp, cb: (arg: any) => void): void => {
-    const playerPed = PlayerPedId();
-    setPedProp(playerPed, prop);
-    cb(getPropSettings(playerPed, prop.prop_id));
-  });
+  on(
+    '__cfx_nui:appearance_change_prop',
+    (
+      prop: { prop_id: number; collection: string; drawable: number; texture: number },
+      cb: (arg: any) => void,
+    ): void => {
+      const playerPed = PlayerPedId();
+      const { prop_id, collection, drawable, texture } = prop;
+      setPedProp(playerPed, prop_id, { collection, drawable, texture });
+      cb(getPropSettings(playerPed, prop_id));
+    },
+  );
 
   on(
     '__cfx_nui:appearance_change_head_blend',

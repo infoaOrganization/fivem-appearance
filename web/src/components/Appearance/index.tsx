@@ -296,21 +296,25 @@ const Appearance = () => {
     async (component_id: number, drawable: number) => {
       if (!data || !appearanceSettings) return;
 
-      const component = data.components.find(c => c.component_id === component_id);
+      const component = data.components[component_id];
 
       if (!component) return;
 
       const updatedComponent = { ...component, drawable, texture: 0 };
 
-      const filteredComponents = data.components.filter(c => c.component_id !== component_id);
-
-      const updatedComponents = [...filteredComponents, updatedComponent];
+      const updatedComponents = {
+        ...data.components,
+        [component_id]: updatedComponent,
+      };
 
       const updatedData = { ...data, components: updatedComponents };
 
       setData(updatedData);
 
-      const updatedComponentSettings = await Nui.post('appearance_change_component', updatedComponent);
+      const updatedComponentSettings = await Nui.post('appearance_change_component', {
+        component_id,
+        ...updatedComponent,
+      });
 
       const filteredComponentsSettings = appearanceSettings.components.filter(c => c.component_id !== component_id);
 
@@ -327,21 +331,25 @@ const Appearance = () => {
     async (component_id: number, texture: number) => {
       if (!data || !appearanceSettings) return;
 
-      const component = data.components.find(c => c.component_id === component_id);
+      const component = data.components[component_id];
 
       if (!component) return;
 
       const updatedComponent = { ...component, texture };
 
-      const filteredComponents = data.components.filter(c => c.component_id !== component_id);
-
-      const updatedComponents = [...filteredComponents, updatedComponent];
+      const updatedComponents = {
+        ...data.components,
+        [component_id]: updatedComponent,
+      };
 
       const updatedData = { ...data, components: updatedComponents };
 
       setData(updatedData);
 
-      const updatedComponentSettings = await Nui.post('appearance_change_component', updatedComponent);
+      const updatedComponentSettings = await Nui.post('appearance_change_component', {
+        component_id,
+        ...updatedComponent,
+      });
 
       const filteredComponentsSettings = appearanceSettings.components.filter(c => c.component_id !== component_id);
 
@@ -358,21 +366,25 @@ const Appearance = () => {
     async (prop_id: number, drawable: number) => {
       if (!data || !appearanceSettings) return;
 
-      const prop = data.props.find(p => p.prop_id === prop_id);
+      const prop = data.props[prop_id];
 
       if (!prop) return;
 
       const updatedProp = { ...prop, drawable, texture: 0 };
 
-      const filteredProps = data.props.filter(p => p.prop_id !== prop_id);
-
-      const updatedProps = [...filteredProps, updatedProp];
+      const updatedProps = {
+        ...data.props,
+        [prop_id]: updatedProp,
+      };
 
       const updatedData = { ...data, props: updatedProps };
 
       setData(updatedData);
 
-      const updatedPropSettings = await Nui.post('appearance_change_prop', updatedProp);
+      const updatedPropSettings = await Nui.post('appearance_change_prop', {
+        prop_id,
+        ...updatedProp,
+      });
 
       const filteredPropsSettings = appearanceSettings.props.filter(c => c.prop_id !== prop_id);
 
@@ -389,21 +401,25 @@ const Appearance = () => {
     async (prop_id: number, texture: number) => {
       if (!data || !appearanceSettings) return;
 
-      const prop = data.props.find(p => p.prop_id === prop_id);
+      const prop = data.props[prop_id];
 
       if (!prop) return;
 
       const updatedProp = { ...prop, texture };
 
-      const filteredProps = data.props.filter(p => p.prop_id !== prop_id);
-
-      const updatedProps = [...filteredProps, updatedProp];
+      const updatedProps = {
+        ...data.props,
+        [prop_id]: updatedProp,
+      };
 
       const updatedData = { ...data, props: updatedProps };
 
       setData(updatedData);
 
-      const updatedPropSettings = await Nui.post('appearance_change_prop', updatedProp);
+      const updatedPropSettings = await Nui.post('appearance_change_prop', {
+        prop_id,
+        ...updatedProp,
+      });
 
       const filteredPropsSettings = appearanceSettings.props.filter(c => c.prop_id !== prop_id);
 

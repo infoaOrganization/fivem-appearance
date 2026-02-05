@@ -58,22 +58,26 @@ export interface PedHair {
   highlight: number;
 }
 
-export interface PedComponent {
-  component_id: number;
+export interface PedComponentValue {
+  collection: string;
   drawable: number;
   texture: number;
 }
 
-export interface PedProp {
-  prop_id: number;
+export type PedComponents = Record<number, PedComponentValue>;
+
+export interface PedPropValue {
+  collection: string;
   drawable: number;
   texture: number;
 }
+
+export type PedProps = Record<number, PedPropValue>;
 
 export interface PedAppearance {
   model: string;
-  components: PedComponent[];
-  props: PedProp[];
+  components: PedComponents;
+  props: PedProps;
   headBlend: PedHeadBlend;
   faceFeatures: PedFaceFeatures;
   headOverlays: PedHeadOverlays;
@@ -84,7 +88,7 @@ export interface PedAppearance {
 
 export interface PedSettings {
   model: {
-    items: { label: string, model: string }[];
+    items: { label: string; model: string }[];
   };
 }
 

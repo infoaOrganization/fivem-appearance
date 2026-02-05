@@ -420,23 +420,12 @@ export async function wearClothes(data: PedAppearance, typeClothes: string): Pro
     await Delay(0);
   }
 
-  if (isMale) {
-    for (let i = 0; i < male.length; i++) {
-      const [componentId] = male[i];
-      for (let j = 0; j < components.length; j++) {
-        const { component_id, drawable, texture } = components[j];
-        // eslint-disable-next-line prettier/prettier
-        if (component_id === componentId) SetPedComponentVariation(playerPed, componentId, drawable, texture, 2);
-      }
-    }
-  } else {
-    for (let i = 0; i < female.length; i++) {
-      const [componentId] = female[i];
-      for (let j = 0; j < components.length; j++) {
-        const { component_id, drawable, texture } = components[j];
-        // eslint-disable-next-line prettier/prettier
-        if (component_id === componentId) SetPedComponentVariation(playerPed, componentId, drawable, texture, 2);
-      }
+  const componentIds = isMale ? male : female;
+  for (let i = 0; i < componentIds.length; i++) {
+    const [componentId] = componentIds[i];
+    const component = components[componentId];
+    if (component) {
+      SetPedComponentVariation(playerPed, componentId, component.drawable, component.texture, 2);
     }
   }
 
