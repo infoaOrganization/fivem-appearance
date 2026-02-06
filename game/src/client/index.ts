@@ -71,8 +71,9 @@ function getPedProps(ped: number): PedProps {
     let drawable = GetPedPropIndex(ped, propId);
 
     if (isFreemode) {
-      collection = GetPedPropVariationCollectionName(ped, propId) || '';
-      drawable = GetPedPropVariationCollectionLocalIndex(ped, propId);
+      const globalIndex = drawable;
+      collection = GetPedCollectionNameFromProp(ped, propId, globalIndex) || '';
+      drawable = GetPedCollectionLocalIndexFromProp(ped, propId, globalIndex);
     }
 
     props[propId] = {

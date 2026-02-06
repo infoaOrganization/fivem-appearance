@@ -1,37 +1,3 @@
-// Collection-based natives (FiveM)
-declare function GetPedDrawableVariationCollectionName(ped: number, componentId: number): string;
-declare function GetPedDrawableVariationCollectionLocalIndex(
-  ped: number,
-  componentId: number,
-): number;
-declare function SetPedCollectionComponentVariation(
-  ped: number,
-  componentId: number,
-  collectionName: string,
-  drawableId: number,
-  textureId: number,
-  paletteId: number,
-): void;
-declare function IsPedCollectionComponentVariationValid(
-  ped: number,
-  componentId: number,
-  collectionName: string,
-  drawableId: number,
-  textureId: number,
-  paletteId: number,
-): boolean;
-
-declare function GetPedPropVariationCollectionName(ped: number, propId: number): string;
-declare function GetPedPropVariationCollectionLocalIndex(ped: number, propId: number): number;
-declare function SetPedCollectionPropIndex(
-  ped: number,
-  propId: number,
-  collectionName: string,
-  drawableId: number,
-  textureId: number,
-  attach: boolean,
-): void;
-
 interface Vector3 {
   x: number;
   y: number;
