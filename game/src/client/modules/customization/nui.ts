@@ -4,6 +4,8 @@ import {
   getConfig,
   getComponentSettings,
   getPropSettings,
+  getCollectionsForComponent,
+  getCollectionsForProp,
   pedTurnAround,
   setCamera,
   rotateCamera,
@@ -41,7 +43,9 @@ export function registerNuiCallbacks(): void {
   RegisterNuiCallbackType('appearance_change_head_overlay');
   RegisterNuiCallbackType('appearance_change_eye_color');
   RegisterNuiCallbackType('appearance_change_component');
+  RegisterNuiCallbackType('appearance_change_component_collection');
   RegisterNuiCallbackType('appearance_change_prop');
+  RegisterNuiCallbackType('appearance_change_prop_collection');
   RegisterNuiCallbackType('appearance_apply_tattoo');
   RegisterNuiCallbackType('appearance_preview_tattoo');
   RegisterNuiCallbackType('appearance_delete_tattoo');
@@ -127,6 +131,32 @@ export function registerNuiCallbacks(): void {
       const { prop_id, collection, drawable, texture } = prop;
       setPedProp(playerPed, prop_id, { collection, drawable, texture });
       cb(getPropSettings(playerPed, prop_id));
+    },
+  );
+
+  on(
+    '__cfx_nui:appearance_change_component_collection',
+    (data: { component_id: number; collection: string }, cb: (arg: any) => void): void => {
+      const playerPed = PlayerPedId();
+      const { component_id, collection } = data;
+      // Reset drawable to 0 when collection changes
+      setPedComponent(playerPed, component_id, { collection, drawable: 0, texture: 0 });
+      const settings = getComponentSettings(playerPed, component_id);
+      const collections = getCollectionsForComponent(playerPed, component_id);
+      cb({ settings, collections });
+    },
+  );
+
+  on(
+    '__cfx_nui:appearance_change_prop_collection',
+    (data: { prop_id: number; collection: string }, cb: (arg: any) => void): void => {
+      const playerPed = PlayerPedId();
+      const { prop_id, collection } = data;
+      // Reset drawable to 0 when collection changes
+      setPedProp(playerPed, prop_id, { collection, drawable: 0, texture: 0 });
+      const settings = getPropSettings(playerPed, prop_id);
+      const collections = getCollectionsForProp(playerPed, prop_id);
+      cb({ settings, collections });
     },
   );
 

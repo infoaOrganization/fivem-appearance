@@ -104,6 +104,7 @@ export default interface Locales {
     title: string;
     drawable: string;
     texture: string;
+    collection?: string;
     mask: string;
     upperBody: string;
     lowerBody: string;
@@ -119,6 +120,7 @@ export default interface Locales {
     title: string;
     drawable: string;
     texture: string;
+    collection?: string;
     hats: string;
     glasses: string;
     ear: string;

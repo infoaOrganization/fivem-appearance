@@ -109,6 +109,12 @@ interface PedSettings {
   };
 }
 
+interface CollectionInfo {
+  name: string;
+  label: string;
+  drawableCount: number;
+}
+
 interface ComponentSettings {
   component_id: number;
   drawable: {
@@ -119,6 +125,8 @@ interface ComponentSettings {
     min: number;
     max: number;
   };
+  collections?: CollectionInfo[];
+  excludedIndices?: number[];
 }
 
 interface PropSettings {
@@ -131,6 +139,8 @@ interface PropSettings {
     min: number;
     max: number;
   };
+  collections?: CollectionInfo[];
+  excludedIndices?: number[];
 }
 
 interface HeadBlendSettings {

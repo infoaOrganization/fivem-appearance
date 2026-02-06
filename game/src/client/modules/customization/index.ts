@@ -7,7 +7,15 @@ import {
   DATA_CLOTHES,
 } from '../../constants';
 
-import { getPedModels, getPedAppearance, setPlayerAppearance, totalTattoos } from '../../index';
+import {
+  getPedModels,
+  getPedAppearance,
+  setPlayerAppearance,
+  totalTattoos,
+  getCollectionLabel,
+  getExcludedComponentIndices,
+  getExcludedPropIndices,
+} from '../../index';
 
 import { arrayToVector3, isPedMale, Delay } from '../../utils';
 
@@ -85,10 +93,33 @@ export function getAppearance(): PedAppearance {
   return playerAppearance;
 }
 
+export function getCollectionsForComponent(ped: number, componentId: number): CollectionInfo[] {
+  const collections: CollectionInfo[] = [];
+  const collectionCount = GetPedCollectionsCount(ped);
+
+  for (let i = 0; i < collectionCount; i++) {
+    const name = GetPedCollectionName(ped, i);
+    const drawableCount = GetNumberOfPedCollectionDrawableVariations(ped, componentId, name);
+
+    if (drawableCount > 0) {
+      collections.push({
+        name,
+        label: getCollectionLabel(name),
+        drawableCount,
+      });
+    }
+  }
+
+  return collections;
+}
+
 export function getComponentSettings(ped: number, componentId: number): ComponentSettings {
   const drawableId = GetPedDrawableVariation(ped, componentId);
+  const currentCollection = GetPedDrawableVariationCollectionName(ped, componentId) || '';
+  const excludedConfig = getExcludedComponentIndices();
+  const excludedIndices = excludedConfig[currentCollection]?.[componentId] || [];
 
-  const settings = {
+  const settings: ComponentSettings = {
     component_id: componentId,
     drawable: {
       min: 0,
@@ -98,15 +129,40 @@ export function getComponentSettings(ped: number, componentId: number): Componen
       min: 0,
       max: GetNumberOfPedTextureVariations(ped, componentId, drawableId) - 1,
     },
+    collections: getCollectionsForComponent(ped, componentId),
+    excludedIndices,
   };
 
   return settings;
 }
 
+export function getCollectionsForProp(ped: number, propId: number): CollectionInfo[] {
+  const collections: CollectionInfo[] = [];
+  const collectionCount = GetPedCollectionsCount(ped);
+
+  for (let i = 0; i < collectionCount; i++) {
+    const name = GetPedCollectionName(ped, i);
+    const drawableCount = GetNumberOfPedCollectionPropDrawableVariations(ped, propId, name);
+
+    if (drawableCount > 0) {
+      collections.push({
+        name,
+        label: getCollectionLabel(name),
+        drawableCount,
+      });
+    }
+  }
+
+  return collections;
+}
+
 export function getPropSettings(ped: number, propId: number): PropSettings {
   const drawableId = GetPedPropIndex(ped, propId);
+  const currentCollection = GetPedCollectionNameFromProp(ped, propId, drawableId) || '';
+  const excludedConfig = getExcludedPropIndices();
+  const excludedIndices = excludedConfig[currentCollection]?.[propId] || [];
 
-  const settings = {
+  const settings: PropSettings = {
     prop_id: propId,
     drawable: {
       min: -1,
@@ -116,6 +172,8 @@ export function getPropSettings(ped: number, propId: number): PropSettings {
       min: -1,
       max: GetNumberOfPedPropTextureVariations(ped, propId, drawableId) - 1,
     },
+    collections: getCollectionsForProp(ped, propId),
+    excludedIndices,
   };
 
   return settings;

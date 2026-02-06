@@ -35,6 +35,44 @@ export function getPedModels(): { label: string; model: string }[] {
   return pedModels;
 }
 
+// Collection labels and excluded indices
+let collectionLabels: Record<string, string> = {
+  '': 'Base Game',
+};
+
+let excludedComponentIndices: Record<string, Record<number, number[]>> = {};
+let excludedPropIndices: Record<string, Record<number, number[]>> = {};
+
+export function setCollectionLabels(labels: Record<string, string>): void {
+  collectionLabels = { ...collectionLabels, ...labels };
+}
+
+export function getCollectionLabels(): Record<string, string> {
+  return collectionLabels;
+}
+
+export function getCollectionLabel(collectionName: string): string {
+  return collectionLabels[collectionName] || collectionName || 'Base Game';
+}
+
+export function setExcludedComponentIndices(
+  config: Record<string, Record<number, number[]>>,
+): void {
+  excludedComponentIndices = config;
+}
+
+export function getExcludedComponentIndices(): Record<string, Record<number, number[]>> {
+  return excludedComponentIndices;
+}
+
+export function setExcludedPropIndices(config: Record<string, Record<number, number[]>>): void {
+  excludedPropIndices = config;
+}
+
+export function getExcludedPropIndices(): Record<string, Record<number, number[]>> {
+  return excludedPropIndices;
+}
+
 function getPedModel(ped: number): string {
   return pedModelsByHash[GetEntityModel(ped)];
 }
@@ -461,6 +499,9 @@ function setPedAppearance(ped: number, appearance: Omit<PedAppearance, 'model'>)
   exp('getPedAppearance', getPedAppearance);
 
   exp('setPedModels', setPedModels);
+  exp('setCollectionLabels', setCollectionLabels);
+  exp('setExcludedComponentIndices', setExcludedComponentIndices);
+  exp('setExcludedPropIndices', setExcludedPropIndices);
   exp('setPlayerModel', setPlayerModel);
   exp('setPedHeadBlend', setPedHeadBlend);
   exp('setPedFaceFeatures', setPedFaceFeatures);

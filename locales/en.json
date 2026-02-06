@@ -101,6 +101,7 @@
     "eyeColor": "눈 색상"
   },
   "components": {
+    "collection": "컬렉션",
     "title": "의류",
     "drawable": "종류",
     "texture": "텍스처",
@@ -116,6 +117,7 @@
     "jackets": "재킷"
   },
   "props": {
+    "collection": "컬렉션",
     "title": "악세서리",
     "drawable": "종류",
     "texture": "텍스처",

@@ -432,6 +432,68 @@ const Appearance = () => {
     [data, setData, appearanceSettings, setAppearanceSettings],
   );
 
+  const handleComponentCollectionChange = useCallback(
+    async (component_id: number, collection: string) => {
+      if (!data || !appearanceSettings) return;
+
+      const updatedComponent = { collection, drawable: 0, texture: 0 };
+
+      const updatedComponents = {
+        ...data.components,
+        [component_id]: updatedComponent,
+      };
+
+      const updatedData = { ...data, components: updatedComponents };
+
+      setData(updatedData);
+
+      const { settings: updatedComponentSettings } = await Nui.post('appearance_change_component_collection', {
+        component_id,
+        collection,
+      });
+
+      const filteredComponentsSettings = appearanceSettings.components.filter(c => c.component_id !== component_id);
+
+      const updatedComponentsSettings = [...filteredComponentsSettings, updatedComponentSettings];
+
+      const updatedSettings = { ...appearanceSettings, components: updatedComponentsSettings };
+
+      setAppearanceSettings(updatedSettings);
+    },
+    [data, setData, appearanceSettings, setAppearanceSettings],
+  );
+
+  const handlePropCollectionChange = useCallback(
+    async (prop_id: number, collection: string) => {
+      if (!data || !appearanceSettings) return;
+
+      const updatedProp = { collection, drawable: 0, texture: 0 };
+
+      const updatedProps = {
+        ...data.props,
+        [prop_id]: updatedProp,
+      };
+
+      const updatedData = { ...data, props: updatedProps };
+
+      setData(updatedData);
+
+      const { settings: updatedPropSettings } = await Nui.post('appearance_change_prop_collection', {
+        prop_id,
+        collection,
+      });
+
+      const filteredPropsSettings = appearanceSettings.props.filter(c => c.prop_id !== prop_id);
+
+      const updatedPropsSettings = [...filteredPropsSettings, updatedPropSettings];
+
+      const updatedSettings = { ...appearanceSettings, props: updatedPropsSettings };
+
+      setAppearanceSettings(updatedSettings);
+    },
+    [data, setData, appearanceSettings, setAppearanceSettings],
+  );
+
   const isPedFreemodeModel = useMemo(() => {
     if (!data) return;
 
@@ -587,6 +649,7 @@ const Appearance = () => {
                       storedData={storedData.components}
                       handleComponentDrawableChange={handleComponentDrawableChange}
                       handleComponentTextureChange={handleComponentTextureChange}
+                      handleComponentCollectionChange={handleComponentCollectionChange}
                     />
                   )}
                   {config.props && (
@@ -596,6 +659,7 @@ const Appearance = () => {
                       storedData={storedData.props}
                       handlePropDrawableChange={handlePropDrawableChange}
                       handlePropTextureChange={handlePropTextureChange}
+                      handlePropCollectionChange={handlePropCollectionChange}
                     />
                   )}
                   {isPedFreemodeModel && config.tattoos && (
