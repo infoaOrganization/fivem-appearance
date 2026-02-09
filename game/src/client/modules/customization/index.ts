@@ -17,7 +17,7 @@ import {
   getExcludedPropIndices,
 } from '../../index';
 
-import { arrayToVector3, isPedMale, Delay } from '../../utils';
+import { arrayToVector3, isPedFreemodeModel, isPedMale, Delay } from '../../utils';
 
 import { registerNuiCallbacks } from './nui';
 
@@ -114,21 +114,34 @@ export function getCollectionsForComponent(ped: number, componentId: number): Co
 }
 
 export function getComponentSettings(ped: number, componentId: number): ComponentSettings {
-  const drawableId = GetPedDrawableVariation(ped, componentId);
   const currentCollection = GetPedDrawableVariationCollectionName(ped, componentId) || '';
+  const localDrawable = GetPedDrawableVariationCollectionLocalIndex(ped, componentId);
   const excludedConfig = getExcludedComponentIndices();
   const excludedIndices = excludedConfig[currentCollection]?.[componentId] || [];
 
+  let drawableMax: number;
+  let textureMax: number;
+
+  if (isPedFreemodeModel(ped)) {
+    drawableMax =
+      GetNumberOfPedCollectionDrawableVariations(ped, componentId, currentCollection) - 1;
+    textureMax =
+      GetNumberOfPedCollectionTextureVariations(
+        ped,
+        componentId,
+        currentCollection,
+        localDrawable,
+      ) - 1;
+  } else {
+    const globalDrawable = GetPedDrawableVariation(ped, componentId);
+    drawableMax = GetNumberOfPedDrawableVariations(ped, componentId) - 1;
+    textureMax = GetNumberOfPedTextureVariations(ped, componentId, globalDrawable) - 1;
+  }
+
   const settings: ComponentSettings = {
     component_id: componentId,
-    drawable: {
-      min: 0,
-      max: GetNumberOfPedDrawableVariations(ped, componentId) - 1,
-    },
-    texture: {
-      min: 0,
-      max: GetNumberOfPedTextureVariations(ped, componentId, drawableId) - 1,
-    },
+    drawable: { min: 0, max: drawableMax },
+    texture: { min: 0, max: textureMax },
     collections: getCollectionsForComponent(ped, componentId),
     excludedIndices,
   };
@@ -157,21 +170,30 @@ export function getCollectionsForProp(ped: number, propId: number): CollectionIn
 }
 
 export function getPropSettings(ped: number, propId: number): PropSettings {
-  const drawableId = GetPedPropIndex(ped, propId);
-  const currentCollection = GetPedCollectionNameFromProp(ped, propId, drawableId) || '';
+  const globalDrawable = GetPedPropIndex(ped, propId);
+  const currentCollection = GetPedCollectionNameFromProp(ped, propId, globalDrawable) || '';
   const excludedConfig = getExcludedPropIndices();
   const excludedIndices = excludedConfig[currentCollection]?.[propId] || [];
 
+  let drawableMax: number;
+  let textureMax: number;
+
+  if (isPedFreemodeModel(ped)) {
+    drawableMax =
+      GetNumberOfPedCollectionPropDrawableVariations(ped, propId, currentCollection) - 1;
+    const localDrawable = GetPedCollectionLocalIndexFromProp(ped, propId, globalDrawable);
+    textureMax =
+      GetNumberOfPedCollectionPropTextureVariations(ped, propId, currentCollection, localDrawable) -
+      1;
+  } else {
+    drawableMax = GetNumberOfPedPropDrawableVariations(ped, propId) - 1;
+    textureMax = GetNumberOfPedPropTextureVariations(ped, propId, globalDrawable) - 1;
+  }
+
   const settings: PropSettings = {
     prop_id: propId,
-    drawable: {
-      min: -1,
-      max: GetNumberOfPedPropDrawableVariations(ped, propId) - 1,
-    },
-    texture: {
-      min: -1,
-      max: GetNumberOfPedPropTextureVariations(ped, propId, drawableId) - 1,
-    },
+    drawable: { min: -1, max: drawableMax },
+    texture: { min: -1, max: textureMax },
     collections: getCollectionsForProp(ped, propId),
     excludedIndices,
   };

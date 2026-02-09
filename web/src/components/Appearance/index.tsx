@@ -71,9 +71,13 @@ if (!import.meta.env.PROD) {
 
   mock('appearance_change_model', () => SETTINGS_INITIAL_STATE);
 
-  mock('appearance_change_component', () => SETTINGS_INITIAL_STATE.components);
+  mock('appearance_change_component', (data: { component_id: number }) => {
+    return SETTINGS_INITIAL_STATE.components.find(c => c.component_id === data.component_id);
+  });
 
-  mock('appearance_change_prop', () => SETTINGS_INITIAL_STATE.props);
+  mock('appearance_change_prop', (data: { prop_id: number }) => {
+    return SETTINGS_INITIAL_STATE.props.find(p => p.prop_id === data.prop_id);
+  });
 
   mock('appearance_change_component_collection', (data: { component_id: number; collection: string }) => {
     const comp = SETTINGS_INITIAL_STATE.components.find(c => c.component_id === data.component_id);
