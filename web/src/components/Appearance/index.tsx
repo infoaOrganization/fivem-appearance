@@ -74,6 +74,30 @@ if (!import.meta.env.PROD) {
   mock('appearance_change_component', () => SETTINGS_INITIAL_STATE.components);
 
   mock('appearance_change_prop', () => SETTINGS_INITIAL_STATE.props);
+
+  mock('appearance_change_component_collection', (data: { component_id: number; collection: string }) => {
+    const comp = SETTINGS_INITIAL_STATE.components.find(c => c.component_id === data.component_id);
+    const col = comp?.collections?.find(c => c.name === data.collection);
+    return {
+      settings: {
+        ...comp,
+        drawable: { min: 0, max: col ? col.drawableCount - 1 : 0 },
+        texture: { min: 0, max: 10 },
+      },
+    };
+  });
+
+  mock('appearance_change_prop_collection', (data: { prop_id: number; collection: string }) => {
+    const prop = SETTINGS_INITIAL_STATE.props.find(p => p.prop_id === data.prop_id);
+    const col = prop?.collections?.find(c => c.name === data.collection);
+    return {
+      settings: {
+        ...prop,
+        drawable: { min: -1, max: col ? col.drawableCount - 1 : 0 },
+        texture: { min: 0, max: 10 },
+      },
+    };
+  });
 }
 
 const Appearance = () => {

@@ -132,24 +132,128 @@ export const SETTINGS_INITIAL_STATE: AppearanceSettings = {
   },
   components: [
     { component_id: 0, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 1, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
+    {
+      component_id: 1,
+      drawable: { min: 0, max: 50 },
+      texture: { min: 0, max: 10 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 50 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 8 },
+        { name: 'mp_f_sum2', label: 'Summer DLC', drawableCount: 5 },
+      ],
+    },
     { component_id: 2, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 3, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 4, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 5, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 6, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 7, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 8, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 9, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 10, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
-    { component_id: 11, drawable: { min: 0, max: 255 }, texture: { min: 0, max: 255 } },
+    {
+      component_id: 3,
+      drawable: { min: 0, max: 60 },
+      texture: { min: 0, max: 10 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 60 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 12 },
+      ],
+    },
+    {
+      component_id: 4,
+      drawable: { min: 0, max: 80 },
+      texture: { min: 0, max: 15 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 80 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 10 },
+        { name: 'mp_f_sum2', label: 'Summer DLC', drawableCount: 6 },
+      ],
+    },
+    {
+      component_id: 5,
+      drawable: { min: 0, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [{ name: '', label: 'Base Game', drawableCount: 30 }],
+    },
+    {
+      component_id: 6,
+      drawable: { min: 0, max: 70 },
+      texture: { min: 0, max: 10 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 70 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 5 },
+      ],
+    },
+    {
+      component_id: 7,
+      drawable: { min: 0, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [{ name: '', label: 'Base Game', drawableCount: 20 }],
+    },
+    {
+      component_id: 8,
+      drawable: { min: 0, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 40 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 7 },
+      ],
+    },
+    {
+      component_id: 9,
+      drawable: { min: 0, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [{ name: '', label: 'Base Game', drawableCount: 15 }],
+    },
+    {
+      component_id: 10,
+      drawable: { min: 0, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [{ name: '', label: 'Base Game', drawableCount: 25 }],
+    },
+    {
+      component_id: 11,
+      drawable: { min: 0, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 50 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 8 },
+      ],
+    },
   ],
   props: [
-    { prop_id: 0, drawable: { min: -1, max: 255 }, texture: { min: 0, max: 255 } },
-    { prop_id: 1, drawable: { min: -1, max: 255 }, texture: { min: 0, max: 255 } },
-    { prop_id: 2, drawable: { min: -1, max: 255 }, texture: { min: 0, max: 255 } },
-    { prop_id: 6, drawable: { min: -1, max: 255 }, texture: { min: 0, max: 255 } },
-    { prop_id: 7, drawable: { min: -1, max: 255 }, texture: { min: 0, max: 255 } },
+    {
+      prop_id: 0,
+      drawable: { min: -1, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 120 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 10 },
+      ],
+    },
+    {
+      prop_id: 1,
+      drawable: { min: -1, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 30 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 5 },
+      ],
+    },
+    {
+      prop_id: 2,
+      drawable: { min: -1, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [{ name: '', label: 'Base Game', drawableCount: 15 }],
+    },
+    {
+      prop_id: 6,
+      drawable: { min: -1, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [
+        { name: '', label: 'Base Game', drawableCount: 20 },
+        { name: 'mp_f_heist3', label: 'Heist DLC', drawableCount: 3 },
+      ],
+    },
+    {
+      prop_id: 7,
+      drawable: { min: -1, max: 255 },
+      texture: { min: 0, max: 255 },
+      collections: [{ name: '', label: 'Base Game', drawableCount: 10 }],
+    },
   ],
   headBlend: {
     shapeFirst: {

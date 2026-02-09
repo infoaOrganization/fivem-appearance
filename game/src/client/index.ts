@@ -36,23 +36,23 @@ export function getPedModels(): { label: string; model: string }[] {
 }
 
 // Collection labels and excluded indices
-let collectionLabels: Record<string, string> = {
-  '': 'Base Game',
-};
+let collectionLabels: { name: string; label: string }[] = [{ name: '', label: 'Base Game' }];
 
 let excludedComponentIndices: Record<string, Record<number, number[]>> = {};
 let excludedPropIndices: Record<string, Record<number, number[]>> = {};
 
-export function setCollectionLabels(labels: Record<string, string>): void {
-  collectionLabels = { ...collectionLabels, ...labels };
+export function setCollectionLabels(labels: { name: string; label: string }[]): void {
+  collectionLabels = labels;
 }
 
-export function getCollectionLabels(): Record<string, string> {
+export function getCollectionLabels(): { name: string; label: string }[] {
   return collectionLabels;
 }
 
 export function getCollectionLabel(collectionName: string): string {
-  return collectionLabels[collectionName] || collectionName || 'Base Game';
+  return (
+    collectionLabels.find(l => l.name === collectionName)?.label || collectionName || 'Base Game'
+  );
 }
 
 export function setExcludedComponentIndices(
