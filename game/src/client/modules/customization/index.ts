@@ -12,7 +12,7 @@ import {
   getPedAppearance,
   setPlayerAppearance,
   totalTattoos,
-  getCollectionLabel,
+  getCollectionLabels,
   getExcludedComponentIndices,
   getExcludedPropIndices,
 } from '../../index';
@@ -94,23 +94,14 @@ export function getAppearance(): PedAppearance {
 }
 
 export function getCollectionsForComponent(ped: number, componentId: number): CollectionInfo[] {
-  const collections: CollectionInfo[] = [];
-  const collectionCount = GetPedCollectionsCount(ped);
+  const labels = getCollectionLabels();
 
-  for (let i = 0; i < collectionCount; i++) {
-    const name = GetPedCollectionName(ped, i);
-    const drawableCount = GetNumberOfPedCollectionDrawableVariations(ped, componentId, name);
-
-    if (drawableCount > 0) {
-      collections.push({
-        name,
-        label: getCollectionLabel(name),
-        drawableCount,
-      });
-    }
-  }
-
-  return collections;
+  return labels
+    .map(({ name, label }) => {
+      const drawableCount = GetNumberOfPedCollectionDrawableVariations(ped, componentId, name);
+      return { name, label, drawableCount };
+    })
+    .filter(c => c.drawableCount > 0);
 }
 
 export function getComponentSettings(ped: number, componentId: number): ComponentSettings {
@@ -150,23 +141,14 @@ export function getComponentSettings(ped: number, componentId: number): Componen
 }
 
 export function getCollectionsForProp(ped: number, propId: number): CollectionInfo[] {
-  const collections: CollectionInfo[] = [];
-  const collectionCount = GetPedCollectionsCount(ped);
+  const labels = getCollectionLabels();
 
-  for (let i = 0; i < collectionCount; i++) {
-    const name = GetPedCollectionName(ped, i);
-    const drawableCount = GetNumberOfPedCollectionPropDrawableVariations(ped, propId, name);
-
-    if (drawableCount > 0) {
-      collections.push({
-        name,
-        label: getCollectionLabel(name),
-        drawableCount,
-      });
-    }
-  }
-
-  return collections;
+  return labels
+    .map(({ name, label }) => {
+      const drawableCount = GetNumberOfPedCollectionPropDrawableVariations(ped, propId, name);
+      return { name, label, drawableCount };
+    })
+    .filter(c => c.drawableCount > 0);
 }
 
 export function getPropSettings(ped: number, propId: number): PropSettings {
