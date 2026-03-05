@@ -9,6 +9,8 @@ interface InputProps {
   defaultValue: number;
   clientValue: number;
   onChange: (value: number) => void;
+  onOverflow?: () => void;
+  onUnderflow?: () => void;
 }
 
 const Container = styled.div`
@@ -84,7 +86,7 @@ const Container = styled.div`
   }
 `;
 
-const Input: React.FC<InputProps> = ({ title, min = 0, max = 255, defaultValue, clientValue, onChange }) => {
+const Input: React.FC<InputProps> = ({ title, min = 0, max = 255, defaultValue, clientValue, onChange, onOverflow, onUnderflow }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleContainerClick = useCallback(() => {
@@ -94,18 +96,18 @@ const Input: React.FC<InputProps> = ({ title, min = 0, max = 255, defaultValue, 
   }, [inputRef]);
 
   const getSafeValue = useCallback(
-    (_value: number) => {
-      let safeValue = _value;
-
-      if (safeValue < min) {
-        safeValue = max;
-      } else if (safeValue > max) {
-        safeValue = min;
+    (_value: number): number | null => {
+      if (_value < min) {
+        if (onUnderflow) { onUnderflow(); return null; }
+        return max;
+      } else if (_value > max) {
+        if (onOverflow) { onOverflow(); return null; }
+        return min;
       }
 
-      return safeValue;
+      return _value;
     },
-    [min, max],
+    [min, max, onOverflow, onUnderflow],
   );
 
   const handleChange = useCallback(
@@ -123,6 +125,8 @@ const Input: React.FC<InputProps> = ({ title, min = 0, max = 255, defaultValue, 
       }
 
       const safeValue = getSafeValue(parsedValue);
+
+      if (safeValue === null) return;
 
       onChange(safeValue);
     },

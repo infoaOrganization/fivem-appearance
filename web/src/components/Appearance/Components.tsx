@@ -20,7 +20,7 @@ interface ComponentsProps {
   storedData: PedComponents;
   handleComponentDrawableChange: (component_id: number, drawable: number) => void;
   handleComponentTextureChange: (component_id: number, texture: number) => void;
-  handleComponentCollectionChange: (component_id: number, collection: string) => void;
+  handleComponentCollectionChange: (component_id: number, collection: string, startFromEnd?: boolean) => void;
 }
 
 const Components = ({
@@ -36,6 +36,15 @@ const Components = ({
   const settingsById = settings.reduce((object, { component_id, drawable, texture, collections, excludedIndices }) => {
     return { ...object, [component_id]: { drawable, texture, collections, excludedIndices } };
   }, {} as DataById<Omit<ComponentSettings, 'component_id'>>);
+
+  const getAdjacentCollection = (component_id: number, direction: 1 | -1): string | null => {
+    const collections = settingsById[component_id]?.collections;
+    if (!collections || collections.length <= 1) return null;
+    const currentName = data[component_id]?.collection ?? '';
+    const idx = collections.findIndex(c => c.name === currentName);
+    const nextIdx = (idx + direction + collections.length) % collections.length;
+    return collections[nextIdx].name;
+  };
 
   if (!locales) {
     return null;
@@ -69,6 +78,8 @@ const Components = ({
             defaultValue={data[1].drawable}
             clientValue={storedData[1].drawable}
             onChange={value => handleComponentDrawableChange(1, value)}
+            onOverflow={() => { const next = getAdjacentCollection(1, 1); if (next !== null) handleComponentCollectionChange(1, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(1, -1); if (next !== null) handleComponentCollectionChange(1, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -106,6 +117,8 @@ const Components = ({
             defaultValue={data[3].drawable}
             clientValue={storedData[3].drawable}
             onChange={value => handleComponentDrawableChange(3, value)}
+            onOverflow={() => { const next = getAdjacentCollection(3, 1); if (next !== null) handleComponentCollectionChange(3, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(3, -1); if (next !== null) handleComponentCollectionChange(3, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -143,6 +156,8 @@ const Components = ({
             defaultValue={data[4].drawable}
             clientValue={storedData[4].drawable}
             onChange={value => handleComponentDrawableChange(4, value)}
+            onOverflow={() => { const next = getAdjacentCollection(4, 1); if (next !== null) handleComponentCollectionChange(4, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(4, -1); if (next !== null) handleComponentCollectionChange(4, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -180,6 +195,8 @@ const Components = ({
             defaultValue={data[5].drawable}
             clientValue={storedData[5].drawable}
             onChange={value => handleComponentDrawableChange(5, value)}
+            onOverflow={() => { const next = getAdjacentCollection(5, 1); if (next !== null) handleComponentCollectionChange(5, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(5, -1); if (next !== null) handleComponentCollectionChange(5, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -217,6 +234,8 @@ const Components = ({
             defaultValue={data[6].drawable}
             clientValue={storedData[6].drawable}
             onChange={value => handleComponentDrawableChange(6, value)}
+            onOverflow={() => { const next = getAdjacentCollection(6, 1); if (next !== null) handleComponentCollectionChange(6, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(6, -1); if (next !== null) handleComponentCollectionChange(6, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -254,6 +273,8 @@ const Components = ({
             defaultValue={data[7].drawable}
             clientValue={storedData[7].drawable}
             onChange={value => handleComponentDrawableChange(7, value)}
+            onOverflow={() => { const next = getAdjacentCollection(7, 1); if (next !== null) handleComponentCollectionChange(7, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(7, -1); if (next !== null) handleComponentCollectionChange(7, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -291,6 +312,8 @@ const Components = ({
             defaultValue={data[8].drawable}
             clientValue={storedData[8].drawable}
             onChange={value => handleComponentDrawableChange(8, value)}
+            onOverflow={() => { const next = getAdjacentCollection(8, 1); if (next !== null) handleComponentCollectionChange(8, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(8, -1); if (next !== null) handleComponentCollectionChange(8, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -328,6 +351,8 @@ const Components = ({
             defaultValue={data[9].drawable}
             clientValue={storedData[9].drawable}
             onChange={value => handleComponentDrawableChange(9, value)}
+            onOverflow={() => { const next = getAdjacentCollection(9, 1); if (next !== null) handleComponentCollectionChange(9, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(9, -1); if (next !== null) handleComponentCollectionChange(9, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -365,6 +390,8 @@ const Components = ({
             defaultValue={data[10].drawable}
             clientValue={storedData[10].drawable}
             onChange={value => handleComponentDrawableChange(10, value)}
+            onOverflow={() => { const next = getAdjacentCollection(10, 1); if (next !== null) handleComponentCollectionChange(10, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(10, -1); if (next !== null) handleComponentCollectionChange(10, next, true); }}
           />
           <Input
             title={locales.components.texture}
@@ -402,6 +429,8 @@ const Components = ({
             defaultValue={data[11].drawable}
             clientValue={storedData[11].drawable}
             onChange={value => handleComponentDrawableChange(11, value)}
+            onOverflow={() => { const next = getAdjacentCollection(11, 1); if (next !== null) handleComponentCollectionChange(11, next); }}
+            onUnderflow={() => { const next = getAdjacentCollection(11, -1); if (next !== null) handleComponentCollectionChange(11, next, true); }}
           />
           <Input
             title={locales.components.texture}

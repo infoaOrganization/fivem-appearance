@@ -461,7 +461,7 @@ const Appearance = () => {
   );
 
   const handleComponentCollectionChange = useCallback(
-    async (component_id: number, collection: string) => {
+    async (component_id: number, collection: string, startFromEnd = false) => {
       if (!data || !appearanceSettings) return;
 
       const updatedComponent = { collection, drawable: 0, texture: 0 };
@@ -487,12 +487,18 @@ const Appearance = () => {
       const updatedSettings = { ...appearanceSettings, components: updatedComponentsSettings };
 
       setAppearanceSettings(updatedSettings);
+
+      if (startFromEnd) {
+        const maxDrawable = updatedComponentSettings.drawable.max;
+        setData(prev => prev ? { ...prev, components: { ...prev.components, [component_id]: { collection, drawable: maxDrawable, texture: 0 } } } : prev);
+        await Nui.post('appearance_change_component', { component_id, collection, drawable: maxDrawable, texture: 0 });
+      }
     },
     [data, setData, appearanceSettings, setAppearanceSettings],
   );
 
   const handlePropCollectionChange = useCallback(
-    async (prop_id: number, collection: string) => {
+    async (prop_id: number, collection: string, startFromEnd = false) => {
       if (!data || !appearanceSettings) return;
 
       const updatedProp = { collection, drawable: 0, texture: 0 };
@@ -518,6 +524,12 @@ const Appearance = () => {
       const updatedSettings = { ...appearanceSettings, props: updatedPropsSettings };
 
       setAppearanceSettings(updatedSettings);
+
+      if (startFromEnd) {
+        const maxDrawable = updatedPropSettings.drawable.max;
+        setData(prev => prev ? { ...prev, props: { ...prev.props, [prop_id]: { collection, drawable: maxDrawable, texture: 0 } } } : prev);
+        await Nui.post('appearance_change_prop', { prop_id, collection, drawable: maxDrawable, texture: 0 });
+      }
     },
     [data, setData, appearanceSettings, setAppearanceSettings],
   );
